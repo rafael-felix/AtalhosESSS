@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESSS - Links Úteis</title>
+    <style>
+        :root {
+            --red: #ff0000;
+            --dark-grey: #333333;
+            --light-grey: #f4f4f4;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--light-grey);
+            color: var(--dark-grey);
+        }
+
+        header {
+            background-color: var(--white);
+            border-bottom: 4px solid var(--red);
+            padding: 20px 5%;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            color: var(--red);
+            font-size: 1.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: var(--white);
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card h2 {
+            color: var(--red);
+            font-size: 1.2rem;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+
+        .link-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .link-list li {
+            margin: 12px 0;
+        }
+
+        .link-list a {
+            text-decoration: none;
+            color: var(--dark-grey);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+        }
+
+        .link-list a:hover {
+            color: var(--red);
+        }
+
+        .link-list a::before {
+            content: '→';
+            margin-right: 8px;
+            color: var(--red);
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            color: #777;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 600px) {
+            .container { margin: 20px auto; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>ESSS Links Úteis</h1>
+    <h4>Site não oficial da companhia</h4>
+</header>
+
+<div class="container">
+    <div class="grid">
+        <div class="card">
+            <h2>Geral</h2>
+            <ul class="link-list">
+                <li><a href="https://www.esss.com" target="_blank">Site oficial</a></li>
+                <li><a href="https://intranet.esss.com/intranet.com" target="_blank">Intranet</a></li>
+                <li><a href="https://gmail.com" target="_blank">E-mail</a></li>
+                <li><a href="https://classroom.google.com/" target="_blank">Classroom</a></li>
+                <li><a href="https://portal.esss.com/Corpore.Net/Login.aspx?autoload=false&ReturnUrl=%2fcorpore.net%2fMain.aspx%3fSelectedMenuIDKey%3dMainRH" target="_blank">Portal do Colaborador</a></li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>PWDa</h2>
+            <ul class="link-list">
+                <li><a href="https://rtolive.petrobras.com.br" target="_blank">RTO Live</a></li>
+                <li><a href="pwda-advisory-hmg.petrobras.com.br" target="_blank">Servidor WEB Homologação </a></li>
+                <li><a href="pwda-advisory.petrobras.com.br" target="_blank">Servidor WEB Produção</a></li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>Petrobras</h2>
+            <ul class="link-list">
+                <li><a href="https://csdpocos.petrobras.com.br/holistico/#/" target="_blank">Holístico</a></li>
+                <li><a href="https://atras-re.petrobras.com.br/sitop" target="_blank">SITOP</a></li>
+                <li><a href="https://csdpocos.petrobras.com.br/seqop/#/" target="_blank">Sequencia Operacional</a></li>
+                <li><a href="https://pocoweb.cenpes.petrobras.com.br/accounts/login?next=/" target="_blank">Poço Web</a></li>
+                <li><a href="https://petrobras.workspaceoneaccess.com" target="_blank">Acesso Remoto (Open Wells, PUTTY, etc)</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; </p>
+</footer>
+
+</body>
+</html>
