@@ -3,162 +3,434 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ESSS - Links Úteis</title>
-    
+    <title>ESSS - Hub de Links Úteis</title>
     <link rel="icon" type="image/x-icon" href="https://www.esss.com/favicon.ico">
-
     <style>
         :root {
-            --red: #ff0000;
+            --esss-blue: #0546FF; 
             --dark-grey: #333333;
             --light-grey: #f4f4f4;
             --white: #ffffff;
+            --border-color: #eee;
+            --text-muted: #666;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0; padding: 0;
             background-color: var(--light-grey);
             color: var(--dark-grey);
+            line-height: 1.4;
         }
 
         header {
             background-color: var(--white);
-            border-bottom: 4px solid var(--red);
+            border-bottom: 4px solid var(--esss-blue);
             padding: 20px 5%;
             text-align: center;
         }
 
+        .logo-header { max-height: 50px; width: auto; display: block; margin: 0 auto 10px auto; }
+
         header h1 {
-            margin: 0;
-            color: var(--red);
-            font-size: 1.8rem;
+            margin: 0; color: var(--esss-blue);
+            font-size: 1.5rem; text-transform: uppercase; letter-spacing: 2px;
+        }
+
+        .container { max-width: 1400px; margin: 20px auto; padding: 0 20px; }
+
+        /* Sanfonas Principais */
+        .main-category {
+            margin-bottom: 15px;
+            background: var(--white);
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+
+        .main-category > summary {
+            padding: 20px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: var(--esss-blue);
+            cursor: pointer;
+            list-style: none;
+            display: flex;
+            align-items: center;
             text-transform: uppercase;
-            letter-spacing: 2px;
         }
 
-        .container {
-            max-width: 1000px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
+        .main-category > summary::-webkit-details-marker { display: none; }
+        .main-category > summary::before { content: '▶'; margin-right: 15px; font-size: 0.8rem; transition: 0.3s; }
+        .main-category[open] > summary::before { transform: rotate(90deg); }
+        .main-category[open] > summary { border-bottom: 2px solid var(--esss-blue); background: #fafafa; }
 
-        .grid {
+        .category-content { padding: 25px; background: #fff; }
+
+        /* Grid de Links */
+        .link-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 20px;
         }
 
-        .card {
-            background: var(--white);
-            padding: 25px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: transform 0.2s;
+        .link-card {
+            background: #fff;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #eee;
         }
 
-        .card:hover {
-            transform: translateY(-5px);
-        }
-
-        .card h2 {
-            color: var(--red);
-            font-size: 1.2rem;
-            border-bottom: 1px solid #ddd;
-            padding-bottom: 10px;
+        .link-card h3 {
+            color: var(--esss-blue);
+            font-size: 0.95rem;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 8px;
             margin-top: 0;
+            margin-bottom: 10px;
         }
 
-        .link-list {
-            list-style: none;
-            padding: 0;
+        .link-list { list-style: none; padding: 0; margin: 0; }
+        .link-list li { margin: 8px 0; }
+        .link-list a { 
+            text-decoration: none; color: var(--dark-grey); 
+            font-weight: 600; font-size: 0.85rem; 
+            display: flex; align-items: center;
         }
+        .link-list a:hover { color: var(--esss-blue); }
+        .link-list a::before { content: '→'; margin-right: 8px; color: var(--esss-blue); font-weight: bold; }
 
-        .link-list li {
-            margin: 12px 0;
-        }
+        /* Estilo Contatos */
+        .contact-stack { display: flex; flex-direction: column; gap: 12px; margin-top: 10px; }
+        .card-expandable { background: #fff; border-radius: 8px; border: 1px solid #e0e0e0; overflow: hidden; }
+        .card-expandable summary { padding: 18px 25px; color: var(--esss-blue); cursor: pointer; font-weight: bold; list-style: none; }
+        .card-expandable[open] summary { border-bottom: 1px solid #eee; background-color: #fafafa; }
+        .card-content { padding: 20px 25px; animation: fadeIn 0.3s ease; }
 
-        .link-list a {
-            text-decoration: none;
-            color: var(--dark-grey);
-            font-weight: 500;
-            display: flex;
-            align-items: center;
+        .posto-info {
+            background: #f0f4ff; padding: 12px; border-radius: 6px; margin-bottom: 15px;
+            font-size: 0.85rem; border-left: 4px solid var(--esss-blue);
         }
+        .posto-info strong { color: var(--esss-blue); }
 
-        .link-list a:hover {
-            color: var(--red);
-        }
+        .contact-list { display: flex; flex-direction: column; gap: 10px; }
+        .person { padding-bottom: 8px; border-bottom: 1px solid var(--border-color); }
+        .person:last-child { border-bottom: none; }
+        .person-main { display: flex; justify-content: space-between; align-items: center; }
+        .name { font-weight: 700; font-size: 0.95rem; }
+        .key { background: var(--esss-blue); color: #fff; padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; }
+        .role { font-size: 0.8rem; color: var(--text-muted); display: block; margin-top: 2px; }
 
-        .link-list a::before {
-            content: '→';
-            margin-right: 8px;
-            color: var(--red);
-        }
-
-        footer {
-            text-align: center;
-            padding: 40px;
-            color: #777;
-            font-size: 0.9rem;
-        }
-
-        @media (max-width: 600px) {
-            .container { margin: 20px auto; }
-        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        footer { text-align: center; padding: 40px; color: #999; font-size: 0.8rem; }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>ESSS Links Úteis</h1>
-    <h4>Site não oficial da companhia</h4>
+    <img src="logo-esss.png" alt="Logo ESSS Energy" class="logo-header">
+    <h1>Portal de Links Úteis</h1>
 </header>
 
 <div class="container">
-    <div class="grid">
-        <div class="card">
-            <h2>Geral</h2>
-            <ul class="link-list">
-                <li><a href="https://www.esss.com" target="_blank">Site oficial</a></li>
-                <li><a href="https://intranet.esss.com/intranet" target="_blank">Intranet</a></li>
-                <li><a href="https://gmail.com" target="_blank">E-mail</a></li>
-                <li><a href="https://classroom.google.com/" target="_blank">Classroom</a></li>
-                <li><a href="https://portal.esss.com/Corpore.Net/Login.aspx?autoload=false&ReturnUrl=%2fcorpore.net%2fMain.aspx%3fSelectedMenuIDKey%3dMainRH" target="_blank">Portal do Colaborador (Folha de Ponto)</a></li>
-                <li><a href="https://intranet.esss.com/project_worklog/" target="_blank">Work Log</a></li>
-            </ul>
-        </div>
 
-        <div class="card">
-            <h2>PWDa</h2>
-            <ul class="link-list">
-                <li><a href="https://rtolive.petrobras.com.br" target="_blank">RTO Live</a></li>
-                <li><a href="https://pwda-advisory-hmg.petrobras.com.br" target="_blank">Servidor WEB Homologação </a></li>
-                <li><a href="https://pwda-advisory.petrobras.com.br" target="_blank">Servidor WEB Produção</a></li>
-                <li><a href="http://npaa9682:8989/" target="_blank">Gideão</a></li>
-                <li><a href="https://petrobrasbr.sharepoint.com/:x:/r/teams/Projeto3W-Tcnico/_layouts/15/Doc.aspx?sourcedoc=%7BAB0573DD-2DA9-44A7-82C3-23489C207F1F%7D&file=levantamento_e_controle_instancias_reais_etapa_perfuracao.xlsx&wdOrigin=TEAMS-MAGLEV.teams_ns.rwc&action=default&mobileredirect=true" target="_blank">Planilha Gideão - Pós Login</a></li>
-            </ul>
+    <details class="main-category">
+        <summary>Geral e Sistemas ESSS</summary>
+        <div class="category-content">
+            <div class="link-grid">
+                <div class="link-card">
+                    <h3>Geral</h3>
+                    <ul class="link-list">
+                        <li><a href="https://www.esss.com" target="_blank">Site oficial</a></li>
+                        <li><a href="https://intranet.esss.com/intranet" target="_blank">Intranet</a></li>
+                        <li><a href="https://gmail.com" target="_blank">E-mail</a></li>
+                        <li><a href="https://classroom.google.com/" target="_blank">Classroom</a></li>
+                        <li><a href="https://portal.esss.com/Corpore.Net/Login.aspx?autoload=false&ReturnUrl=%2fcorpore.net%2fMain.aspx%3fSelectedMenuIDKey%3dMainRH" target="_blank">Portal do Colaborador (Ponto)</a></li>
+                        <li><a href="https://intranet.esss.com/project_worklog/" target="_blank">Work Log</a></li>
+                    </ul>
+                </div>
+                <div class="link-card">
+                    <h3>ESSS (Sistemas e Suporte)</h3>
+                    <ul class="link-list">
+                        <li><a href="https://rfdap.esss.com/" target="_blank">RFDAP PRD</a></li>
+                        <li><a href="https://zulip.esss.com/" target="_blank">Zulip</a></li>
+                        <li><a href="https://esss.atlassian.net/jira/projects" target="_blank">JIRA</a></li>
+                        <li><a href="https://esss.zendesk.com/agent/dashboard" target="_blank">Zendesk</a></li>
+                        <li><a href="https://github.com/ESSS" target="_blank">GitHub</a></li>
+                        <li><a href="https://drive.google.com/drive/folders/0AFH0kblrxQAdUk9PVA" target="_blank">Drive</a></li>
+                        <li><a href="https://support.esss.com/hc/en-us/articles/360030730692-ALFAsim-Download-Link" target="_blank">Download ALFAsim</a></li>
+                        <li><a href="https://docs.esss.com/alfasim/v2025_1_0/en/index.html" target="_blank">Manual ALFAsim</a></li>
+                        <li><a href="https://drive.google.com/drive/folders/1WLuPUD-jfPEjkNGO1xLQLnW0IZcggNzL" target="_blank">Treinamento ALFAsim</a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
+    </details>
 
-        <div class="card">
-            <h2>Petrobras</h2>
-            <ul class="link-list">
-                <li><a href="https://csdpocos.petrobras.com.br/holistico/#/" target="_blank">Holístico</a></li>
-                <li><a href="https://atlas-re.petrobras.com.br/sitop" target="_blank">SITOP</a></li>
-                <li><a href="https://canalintegracao.petrobras.com.br/sitoprapido/262" target="_blank">SITOP Rápido</a></li>
-                <li><a href="https://csdpocos.petrobras.com.br/seqop/#/" target="_blank">Sequencia Operacional</a></li>
-                <li><a href="https://pocoweb.cenpes.petrobras.com.br/accounts/login?next=/" target="_blank">Poço Web</a></li>
-                <li><a href="https://seqop.petrobras.com.br/" target="_blank">Sequencia Operacional (EM TESTE)</a></li>
-                <li><a href="https://petrobras.workspaceoneaccess.com" target="_blank">Acesso Remoto (Open Wells, PUTTY, etc)</a></li>
-            </ul>
+    <details class="main-category">
+        <summary>PWDa/PWDauto</summary>
+        <div class="category-content">
+            <div class="link-grid">
+                <div class="link-card">
+                    <h3>PWDa</h3>
+                    <ul class="link-list">
+                        <li><a href="https://rtolive.petrobras.com.br" target="_blank">RTO Live</a></li>
+                        <li><a href="https://pwda-advisory-hmg.petrobras.com.br" target="_blank">Servidor WEB Homologação </a></li>
+                        <li><a href="https://pwda-advisory.petrobras.com.br" target="_blank">Servidor WEB Produção</a></li>
+                        <li><a href="http://npaa9682:8989/" target="_blank">Gideão</a></li>
+                        <li><a href="https://petrobrasbr.sharepoint.com/:x:/r/teams/Projeto3W-Tcnico/_layouts/15/Doc.aspx?sourcedoc=%7BAB0573DD-2DA9-44A7-82C3-23489C207F1F%7D&file=levantamento_e_controle_instancias_reais_etapa_perfuracao.xlsx" target="_blank">Planilha Gideão</a></li>
+                    </ul>
+                </div>
+                <div class="link-card">
+                    <h3>Petrobras</h3>
+                    <ul class="link-list">
+                        <li><a href="https://csdpocos.petrobras.com.br/holistico/#/" target="_blank">Holístico</a></li>
+                        <li><a href="https://atlas-re.petrobras.com.br/sitop" target="_blank">SITOP</a></li>
+                        <li><a href="https://csdpocos.petrobras.com.br/seqop/#/" target="_blank">Sequencia Operacional</a></li>
+                        <li><a href="https://pocoweb.cenpes.petrobras.com.br/accounts/login?next=/" target="_blank">Poço Web</a></li>
+                        <li><a href="https://seqop.petrobras.com.br/" target="_blank">Sequencia Operacional (EM TESTE)</a></li>
+                        <li><a href="https://petrobras.workspaceoneaccess.com" target="_blank">Acesso Remoto (VDI)</a></li>
+                        <li><a href="https://wellsom.petrobras.com.br/" target="_blank">Wellsom</a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
-    </div>
+    </details>
+
+    <details class="main-category">
+        <summary>WIS/PWPa</summary>
+        <div class="category-content">
+            <div class="link-grid">
+                <div class="link-card">
+                    <h3>WIS Live</h3>
+                    <ul class="link-list">
+                        <li><a href="http://wislive.petrobras.com.br/" target="_blank">WIS PRD</a></li>
+                        <li><a href="http://npab3592.petrobras.biz:8080/" target="_blank">WIS HMG</a></li>
+                        <li><a href="https://petrobrasbr.sharepoint.com/teams/WISLIVE-Alertas/" target="_blank">Registro Alertas</a></li>
+                        <li><a href="https://labpocos-tst.petrobras.com.br/scala/login" target="_blank">SCALA</a></li>
+                    </ul>
+                </div>
+                <div class="link-card">
+                    <h3>PWPA/SCORE TR</h3>
+                    <ul class="link-list">
+                        <li><a href="https://pwpa.petrobras.com.br/dashboard" target="_blank">PWPA PRD</a></li>
+                        <li><a href="https://pwpa-dsv.petrobras.com.br/" target="_blank">PWPA DSV</a></li>
+                        <li><a href="https://score.petrobras.com.br/tree" target="_blank">SCORE</a></li>
+                        <li><a href="https://scoretr.petrobras.com.br/unidades" target="_blank">SCORE TR</a></li>
+                    </ul>
+                </div>
+                <div class="link-card">
+                    <h3>Deploy Containers PWPA</h3>
+                    <ul class="link-list">
+                        <li><a href="https://k8smon2.petrobras.com.br/" target="_blank">Grafana</a></li>
+                        <li><a href="https://github.com/petrobrasbr/pwpa-webapp" target="_blank">Deploy WebApp</a></li>
+                        <li><a href="https://github.com/petrobrasbr/pwpa-backend" target="_blank">Deploy Backend</a></li>
+                        <li><a href="https://github.com/petrobrasbr/pwpa-simulation" target="_blank">Deploy Simulation</a></li>
+                        <li><a href="https://github.com/petrobrasbr/pwpa-integration" target="_blank">Deploy Integration</a></li>
+                        <li><a href="https://github.com/petrobrasbr/pwpa-lookahead" target="_blank">Deploy LookAhead</a></li>
+                    </ul>
+                </div>
+                <div class="link-card">
+                    <h3>EDGE</h3>
+                    <ul class="link-list">
+                        <li><a href="https://p74-wislive.petrobras.com.br/" target="_blank">WIS P-74</a></li>
+                        <li><a href="https://p74-pwpa.petrobras.com.br/" target="_blank">PWPA P-74</a></li>
+                        <li><a href="https://p75-wislive.petrobras.com.br/" target="_blank">WIS P-75</a></li>
+                        <li><a href="https://p75-pwpa.petrobras.com.br/" target="_blank">PWPA P-75</a></li>
+                        <li><a href="https://p77-pwpa.petrobras.com.br/" target="_blank">PWPA P-77</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </details>
+
+    <details class="main-category">
+        <summary>Conhecimentos WIS/PWPa</summary>
+        <div class="category-content">
+            <div class="link-grid">
+                <div class="link-card">
+                    <h3>PI Vision</h3>
+                    <ul class="link-list">
+                        <li><a href="https://pivision-buzios.petrobras.com.br/PIVision/#/Displays/16933/Guia-Geral_VERT_III?starttime=-24h&endtime=*" target="_blank">BUZ Tela Nova</a></li>
+                        <li><a href="https://pivision-buzios.petrobras.com.br/PIVision/#/Displays/3788/Guia-Geral-Nova" target="_blank">BUZ Tela Antiga</a></li>
+                        <li><a href="https://pi-bs.petrobras.com.br/PIVision/#/Displays/48376/" target="_blank">BS</a></li>
+                        <li><a href="https://slibrapivis1/PIVision/#/" target="_blank">LIBRA</a></li>
+                        <li><a href="https://autes.petrobras.com.br/PIVision/#/Folders/195337" target="_blank">ES</a></li>
+                        <li><a href="https://pivisionbc.petrobras.com.br/PIVision/#/Folders/1933" target="_blank">BC</a></li>
+                        <li><a href="https://siop.un-ba.petrobras.com.br/PIVision/#/Displays/488/OP_PE_MENU" target="_blank">BA</a></li>
+                    </ul>
+                </div>
+                <div class="link-card">
+                    <h3>Petrobras (Equipe WIS/PWPa)</h3>
+                    <ul class="link-list">
+                        <li><a href="https://infopoco4.petrobras.com.br/infopoco/?hxid=7ef6db3f2182f9a2#/" target="_blank">InfoPoço4</a></li>
+                        <li><a href="https://iaflow.petrobras.com.br/home" target="_blank">IAflow</a></li>
+                        <li><a href="https://mvm-frontend.petrobras.com.br/app/plataformas" target="_blank">MVM</a></li>
+                        <li><a href="https://gissub.petrobras.com.br/" target="_blank">GISSUB</a></li>
+                        <li><a href="https://atp.petrobras.com.br/" target="_blank">ATP</a></li>
+                        <li><a href="https://geast.petrobras.com.br/" target="_blank">GeAST</a></li>
+                        <li><a href="https://bddf.petrobras.com.br/aplic/restrito/principal/default.asp" target="_blank">BDDF</a></li>
+                        <li><a href="http://marlim.petrobras.com.br:8080/marlim/" target="_blank">Marlim 2</a></li>
+                        <li><a href="https://petrobrasbr.sharepoint.com/teams/Marlim3" target="_blank">Marlim 3</a></li>
+                    </ul>
+                </div>
+                <div class="link-card">
+                    <h3>Padrões WIS/PWPa</h3>
+                    <ul class="link-list">
+                        <li><a href="https://sinpep.petrobras.com.br/SINPEP_Padrao_Web/PadraoEditar?PadraoId=1298" target="_blank">Padrão WIS</a></li>
+                        <li><a href="https://sinpep.petrobras.com.br/SINPEP_Padrao_Web/PadraoEditar?PadraoId=4263" target="_blank">Padrão PWPA</a></li>
+                    </ul>
+                </div>
+                <div class="link-card">
+                    <h3>Conhecimentos (Equipe WIS/PWPa)</h3>
+                    <ul class="link-list">
+                        <li><a href="https://petrobrasbr-my.sharepoint.com/:o:/r/personal/julio_orssatto_prestserv_petrobras_com_br/_layouts/15/Doc.aspx?sourcedoc=%7B85d12bcc-aac1-46ac-9a28-a3cf38dc638c%7D&action=edit" target="_blank">Passerv</a></li>
+                        <li><a href="https://teams.microsoft.com/l/channel/19%3Ab96a55ce3fa244edb3507dba8a27dc44%40thread.tacv2/Conhecimento%20Equipe%2024h?groupId=72cff14a-b866-4c10-b4d5-41d1dbfbaa06&tenantId=5b6f6241-9a57-4be4-8e50-1dfa72e79a57" target="_blank">Equipe Teams</a></li>
+                        <li><a href="https://petrobrasbr.sharepoint.com/teams/bdoc_POCOS-EP-SASD/Documentos%20Compartilhados/Forms/AllItems.aspx?FolderCTID=0x012000FB6665048C46D3458274D618F5FCD674&id=%2Fteams%2Fbdoc%5FPOCOS%2DEP%2DSASD%2FDocumentos%20Compartilhados%2FProjetos%2FECOTEC%2F02%2E%20ECOTEC%2DSAN" target="_blank">Sharepoint ECOTEC</a></li>
+                        <li><a href="https://petrobrasbr-my.sharepoint.com/personal/mayconvieira_engineering_petrobras_com_br/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fmayconvieira%5Fengineering%5Fpetrobras%5Fcom%5Fbr%2FDocuments%2FConhecimento%20ESSS" target="_blank">Sharepoint Conhecimento ESSS</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </details>
+
+    <details class="main-category">
+        <summary>ALFAtwin e Clientes Externos</summary>
+        <div class="category-content">
+            <div class="link-grid">
+                <div class="link-card">
+                    <h3>ALFAtwin</h3>
+                    <ul class="link-list">
+                        <li><a href="https://alfatwin.petrobras.com.br/" target="_blank">ALFAtwin PRD</a></li>
+                        <li><a href="https://alfatwin-dsv.petrobras.com.br/" target="_blank">ALFAtwin DSV</a></li>
+                        <li><a href="https://alfatwin-hmg.petrobras.com.br/" target="_blank">ALFAtwin HMG</a></li>
+                    </ul>
+                </div>
+                <div class="link-card">
+                    <h3>DEMOs e PoVs</h3>
+                    <ul class="link-list">
+                        <li><a href="https://stars.intelie.com/" target="_blank">STARS</a></li>
+                        <li><a href="https://atwin-integrity-demo.esss.com/dashboard" target="_blank">PWPA DEMO</a></li>
+                        <li><a href="https://esss-origem.intelie.com/" target="_blank">LIVE Origem</a></li>
+                        <li><a href="https://esss-petroreconcavo.intelie.com/" target="_blank">LIVE PetroReconcavo</a></li>
+                        <li><a href="https://esss-prio.intelie.com/" target="_blank">LIVE PRIO</a></li>
+                        <li><a href="https://atwin-integrity-origem.esss.com/dashboard" target="_blank">ALFAtwin Integrity Origem</a></li>
+                        <li><a href="https://atwin-integrity-petroreconcavo.esss.com/dashboard" target="_blank">ALFAtwin Integrity PetroReconcavo</a></li>
+                        <li><a href="https://atwin-integrity-prio.esss.com/dashboard" target="_blank">ALFAtwin Integrity PRIO</a></li>
+                        <li><a href="https://alfatwin-petroreconcavo.esss.com" target="_blank">ALFAtwin PetroReconcavo</a></li>
+                        <li><a href="https://alfatwin-prio.esss.com" target="_blank">ALFAtwin PRIO</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </details>
+
+    <details class="main-category">
+        <summary>Equipes e Contatos</summary>
+        <div class="category-content">
+            <div class="contact-stack">
+                <details class="card-expandable">
+                    <summary>Gestores</summary>
+                    <div class="card-content">
+                        <div class="contact-list">
+                            <div class="person"><div class="person-main"><span class="name">Maycon Vieira dos Santos</span><span class="key">AAGE</span></div><span class="role">Gerente da Equipes de Serviço da ESSS</span></div>
+                            <div class="person"><div class="person-main"><span class="name">Julio Picinato Orssatto</span><span class="key">EPWR</span></div><span class="role">Coordenador das Equipes do WIS/PWPa</span></div>
+                            <div class="person"><div class="person-main"><span class="name">Julio Cesar Grillo Brandao</span><span class="key">D75X</span></div><span class="role">Coordenador das Equipes do RTO/PWDa/PWDauto</span></div>
+                        </div>
+                    </div>
+                </details>
+                <details class="card-expandable">
+                    <summary>RTO</summary>
+                    <div class="card-content">
+                        <div class="posto-info">
+                            <div><strong>Email:</strong> sistcdo@petrobras.com.br</div>
+                            <div><strong>Telefone:</strong> (22) 3379-3662 / <strong>Ramal:</strong> 769-3662</div>
+                        </div>
+                        <div class="contact-list">
+                            <div class="person"><div class="person-main"><span class="name">Julia Valentini Carenzi da Silva</span><span class="key">F0VK</span></div><span class="role">ADM da Equipe 24h do RTO</span></div>
+                            <div class="person"><div class="person-main"><span class="name">Vitor Hugo Santos Azevedo</span><span class="key">GG0F</span></div><span class="role">Turno 24h RTO</span></div>
+                            <div class="person"><div class="person-main"><span class="name">Rogerio da Silva Souza</span><span class="key">R9MO</span></div><span class="role">Turno 24h RTO</span></div>
+                            <div class="person"><div class="person-main"><span class="name">Luiz Flavio Dos Santos Cruz Junior</span><span class="key">---</span></div><span class="role">Turno 24h RTO</span></div>
+                            <div class="person"><div class="person-main"><span class="name">Isabelle De Sena Tabosa De Andrade</span><span class="key">---</span></div><span class="role">Turno 24h RTO</span></div>
+                        </div>
+                    </div>
+                </details>
+                <details class="card-expandable">
+                    <summary>WIS/PWPa</summary>
+                    <div class="card-content">
+                        <div class="posto-info">
+                            <div><strong>Email:</strong> wisl@petrobras.com.br</div>
+                            <div><strong>Telefone:</strong> (22) 3379-0450 / <strong>Ramal:</strong> 769-0450</div>
+                        </div>
+                        <div class="contact-list">
+                            <div class="person"><div class="person-main"><span class="name">Hariel Udi Santana Mendes</span><span class="key">EWYT</span></div><span class="role">ADM das Equipes 24h do WIS/PWPa</span></div>
+                            <div class="person"><div class="person-main"><span class="name">Alexandre de Castro Martins</span><span class="key">BM0L</span></div><span class="role">Turno 24h WIS/PWPa 1</span></div>
+                            <div class="person"><div class="person-main"><span class="name">Denisson Lima Santos</span><span class="key">FSJM</span></div><span class="role">Turno 24h WIS/PWPa 1</span></div>
+                            <div class="person"><div class="person-main"><span class="name">Felipe Gois de Lima</span><span class="key">G77T</span></div><span class="role">Turno 24h WIS/PWPa 1</span></div>
+                            <div class="person"><div class="person-main"><span class="name">Luis Andre Mendes Santos</span><span class="key">---</span></div><span class="role">Turno 24h WIS/PWPa 1</span></div>
+                            <div class="person"><div class="person-main"><span class="name">Fernanda Bazilio de Amorim</span><span class="key">F6L0</span></div><span class="role">Turno 24h WIS/PWPa 2</span></div>
+                            <div class="person"><div class="person-main"><span class="name">Rafaela Ferreira da Silva</span><span class="key">FNVA</span></div><span class="role">Turno 24h WIS/PWPa 2</span></div>
+                            <div class="person"><div class="person-main"><span class="name">Luiz Matheus Ferreira Moura</span><span class="key">GDUJ</span></div><span class="role">Turno 24h WIS/PWPa 2</span></div>
+                            <div class="person"><div class="person-main"><span class="name">Daniella Rosangela de Moura Moreira</span><span class="key">EXV3</span></div><span class="role">Turno 24h WIS/PWPa 2</span></div>
+                        </div>
+                    </div>
+                </details>
+                <details class="card-expandable">
+                    <summary>PWDa</summary>
+                    <div class="card-content">
+                        <div class="posto-info">
+                            <div><strong>Email:</strong> pwda1@petrobras.com.br</div>
+                            <div><strong>Telefone:</strong> (22) 3377-8757 / <strong>Ramal:</strong> 767-8757</div>
+                        </div>
+                        <div class="contact-list">
+                            <div class="person"><div class="person-main"><span class="name">Guilherme Gomes de Mendonca Uchoa</span><span class="key">R2WC</span></div><span class="role">Turno 24h PWDa</span></div>
+                            <div class="person"><div class="person-main"><span class="name">Franciele Aparecida Passoni</span><span class="key">DO9S</span></div><span class="role">Turno 24h PWDa</span></div>
+                            <div class="person"><div class="person-main"><span class="name">Carine Barbosa de Oliveira</span><span class="key">EXE0</span></div><span class="role">Turno 24h PWDa</span></div>
+                        </div>
+                    </div>
+                </details>
+                <details class="card-expandable">
+                    <summary>PWDauto</summary>
+                    <div class="card-content">
+                        <div class="contact-list">
+                            <div class="person"><div class="person-main"><span class="name">Felipe Augusto Lombardi dos Santos Favero</span><span class="key">DQ3W</span></div><span class="role">Turno 24h PWDauto</span></div>
+                            <div class="person"><div class="person-main"><span class="name">Rafael Antonio De Oliveira Felix</span><span class="key">---</span></div><span class="role">Turno 24h PWDauto</span></div>
+                            <div class="person"><div class="person-main"><span class="name">Marianne Januzzi Da Silva</span><span class="key">---</span></div><span class="role">Turno 24h PWDauto</span></div>
+                        </div>
+                    </div>
+                </details>
+            </div>
+        </div>
+    </details>
+
 </div>
 
 <footer>
-    <p>&copy; 2026 ESSS - Links Úteis</p>
+    <p>&copy; 2026 ESSS Energy - Hub de Links Úteis v2.0 - Criado por Rafael e Hariel. Se achou ruim, reclama com o Noia.</p>
 </footer>
+
+<script>
+    // Seleciona todas as sanfonas (principais e internas)
+    const allDetails = document.querySelectorAll('details');
+
+    allDetails.forEach((targetDetail) => {
+        targetDetail.addEventListener('click', (e) => {
+            // Se o usuário clicou para abrir
+            if (!targetDetail.open) {
+                // Seleciona as sanfonas do MESMO nível (irmãos)
+                const parent = targetDetail.parentElement;
+                const siblings = parent.querySelectorAll(`:scope > details`);
+                
+                siblings.forEach((detail) => {
+                    if (detail !== targetDetail) {
+                        detail.removeAttribute('open');
+                    }
+                });
+            }
+        });
+    });
+</script>
 
 </body>
 </html>
