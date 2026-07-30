@@ -1,6 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Uma Mensagem Especial</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Georgia', serif;
+      overflow-x: hidden;
+      padding: 20px 0;
+    }
+
+    .instrucao {
+      margin-bottom: 25px;
+      color: #880e4f;
+      font-size: 1.2rem;
+      letter-spacing: 1px;
+      animation: pulso 1.8s infinite;
+      text-align: center;
+      padding: 0 10px;
+    }
+
+    @keyframes pulso {
+      0%, 100% { opacity: 0.7; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.03); }
+    }
+
+    /* Estrutura do Envelope */
+    .container-envelope {
+      position: relative;
+      cursor: pointer;
+      margin-top: 100px;
+    }
+
+    .envelope {
+      position: relative;
+      width: 320px;
+      height: 220px;
+      background-color: #d81b60;
+      border-bottom-left-radius: 8px;
+      border-bottom-right-radius: 8px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Aba Superior (Tampa do Envelope fechada) */
+    .envelope::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 0;
+      border-left: 160px solid transparent;
+      border-right: 160px solid transparent;
+      border-top: 125px solid #ad1457;
+      transform-origin: top;
+      transform: rotateX(0deg); /* Força a ficar fechado no início */
+      transition: transform 0.5s ease-in-out, z-index 0.3s;
+      z-index: 3;
+    }
+
+    /* Dobras da Frente do Envelope */
+    .frente {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 0;
+      border-left: 160px solid #c2185b;
+      border-right: 160px solid #c2185b;
+      border-bottom: 110px solid #880e4f;
+      border-top: 110px solid transparent;
+      border-bottom-left-radius: 8px;
+      border-bottom-right-radius: 8px;
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    /* Carta Interna - Totalmente oculta no início */
+    .carta {
+      position: absolute;
+      bottom: 10px;
+      left: 15px;
+      width: 290px;
+      height: 180px;
+      background: #fff8f0;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      transition: transform 0.6s ease-in-out, opacity 0.4s;
+      z-index: 2;
+      opacity: 0;
+      visibility: hidden; /* Força a ficar invisível e intocável antes de abrir */
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transform: translateY(0);
+    }
+
+    .carta h2 {
+      color: #ad1457;
+      font-size: 1.15rem;
+      margin-bottom: 12px;
+      font-family: 'Palatino', serif;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .conteudo-texto {
+      overflow-y: auto;
+      padding-right: 5px;
+      max-height: 230px;
+    }
+
+    /* Estilização da barra de rolagem */
+    .conteudo-texto::-webkit-scrollbar {
+      width: 5px;
+    }
+    .conteudo-texto::-webkit-scrollbar-thumb {
+      background: #f8bbd0;
+      border-radius: 10px;
+    }
+
+    .carta p {
+      color: #4a4a4a;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      font-style: italic;
+      text-align: justify;
+    }
+
+    .carta .coracao {
+      margin-top: 10px;
+      color: #e91e63;
+      font-size: 1.2rem;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    /* Estado Aberto (Somente quando ativado via clique) */
+    .container-envelope.aberto .envelope::before {
+      transform: rotateX(180deg);
+      z-index: 1;
+    }
+
+    .container-envelope.aberto .carta {
+      transform: translateY(-160px);
+      height: 320px;
+      opacity: 1;
+      visibility: visible; /* Revela a carta apenas na animação */
+      z-index: 4;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+  </style>
+</head>
+<body>
+
   <div class="instrucao">✉️ Clique no envelope para abrir</div>
 
-  <div class="container-envelope" onclick="abrirCarta()">
+  <div class="container-envelope" id="envelopeContainer" onclick="abrirCarta()">
     <div class="envelope">
       <div class="frente"></div>
       <div class="carta">
@@ -11,7 +182,7 @@
           </p>
           <br>
           <p>
-            Passei meus últimos 4 anos não vendo a hora de chegar o último dia do trabalho e ir pra casa, muitas vezes somente sendo possível no outro dia, isso quando o voo não cancelava também. Agora, todo dia, sem exceção, estarei com você. Quando estiver triste, vou estar lá pessoalmente, quando estiver feliz, vou estar me alegrando com você, em pessoa.
+            Passei meus últimos 4 anos não vendo a hora de chegar o último dia do trabalho e ir pra casa, muitas vezes somente sendo possível no outro dia, isso quando o voo não cancelava também. Agora, todo dia, sem exceção, estarei com você. Quando estiver triste, vou estar lá pessoalmente, quando estiver feliz, vou estar me alegrando com você, pessoalmente.
           </p>
           <br>
           <p>
@@ -29,7 +200,7 @@
 
   <script>
     function abrirCarta() {
-      const container = document.querySelector('.container-envelope');
+      const container = document.getElementById('envelopeContainer');
       container.classList.toggle('aberto');
     }
   </script>
